@@ -2,8 +2,10 @@ import React, { useContext, useState, useEffect } from "react";
 import { auth } from "../../firebaseConfig"; 
 // import { GoogleAuthProvider } from "firebase/auth";
 import { onAuthStateChanged } from "firebase/auth";
+import { signOut } from "firebase/auth";
 
 const AuthContext = React.createContext();
+
 
 export function useAuth() {
   return useContext(AuthContext);
@@ -15,12 +17,22 @@ export function AuthProvider({ children }) {
   const [isEmailUser, setIsEmailUser] = useState(false);
   const [isGoogleUser, setIsGoogleUser] = useState(false);
   const [loading, setLoading] = useState(true);
-
+  
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, initializeUser);
     return unsubscribe;
   }, []);
-
+  
+  async function logout() {
+    try {
+      await signOut(auth);
+      setCurrentUser(null);
+      setUserLoggedIn(false);
+      console.log("User logged out successfully");
+    } catch (err) {
+      console.error("Error logging out:", err);
+    }
+  }
   async function initializeUser(user) {
     if (user) {
 
@@ -52,7 +64,8 @@ export function AuthProvider({ children }) {
     isEmailUser,
     isGoogleUser,
     currentUser,
-    setCurrentUser
+    logout,
+    setCurrentUser,
   };
 
   return (
