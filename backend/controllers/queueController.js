@@ -1,7 +1,7 @@
-// Ensure you're exporting the functions correctly
-import {Queue} from '../models/queueModel.js'
 
-const joinQueue = async (req, res) => {
+import { Queue } from "../models/queueModel.js";
+
+export const joinQueue = async (req, res) => {
     const { userId, priorityValue } = req.body;
   
     try {

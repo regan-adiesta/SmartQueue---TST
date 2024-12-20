@@ -3,7 +3,7 @@ import { useAuth } from "../contexts/authContext";
 import { db } from "../firebaseConfig.js";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 
-const Profile = () => {
+const Profile = (props) => {
   const { currentUser } = useAuth(); // Get the logged-in user
   const [editing, setEditing] = useState(false);
   const [formData, setFormData] = useState({
@@ -55,8 +55,10 @@ const Profile = () => {
   };
 
   return (
-    <div>
-    <h1>Profile Page</h1>
+      <div id="services" className="text-center">
+      <div className="container">
+        <div className="section-title">
+        <h1>Profile</h1>
     {currentUser ? (
       editing ? (
         <div>
@@ -97,8 +99,8 @@ const Profile = () => {
             />
             Special Condition
           </label>
-          <button onClick={saveProfile}>Save</button>
-          <button onClick={() => setEditing(false)}>Cancel</button>
+          <button onClick={saveProfile} type="submit" className="btn btn-custom btn-lg">Save</button>
+          <button onClick={() => setEditing(false)} type="reset" className="btn btn-custom btn-lg">Cancel</button>
         </div>
       ) : (
         <div>
@@ -110,13 +112,15 @@ const Profile = () => {
             <strong>Special Condition:</strong>{" "}
             {formData.special_condition ? "Yes" : "No"}
           </p>
-          <button onClick={() => setEditing(true)}>Edit Profile</button>
+          <button onClick={() => setEditing(true)} type="submit" className="btn btn-custom btn-lg">Edit Profile</button>
         </div>
       )
     ) : (
       <p>Loading user data...</p>
     )}
-  </div>
+        </div>
+      </div>
+    </div>
   );
 };
 

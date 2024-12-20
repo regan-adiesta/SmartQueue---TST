@@ -215,7 +215,42 @@ a:focus,
   background-size: cover;
   -o-background-size: cover;
 }
-.intro .overlay {
+.queue{
+  display: table;
+  width: 100%;
+  padding: 0;
+  background: url(../img/intro-bg2.jpg) center center no-repeat;
+  background-color: #e5e5e5;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover;
+  -o-background-size: cover;
+}
+.queue .overlay {
+  background: rgba(0, 0, 0, 0.2);
+}
+.queue h1 {
+  font-family: "Raleway", sans-serif;
+  color: #fff;
+  font-size: 82px;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+.queue h1 span {
+  font-weight: 800;
+  color: #5ca9fb;
+}
+.queue p {
+  color: #fff;
+  font-size: 22px;
+  font-weight: 300;
+  line-height: 30px;
+  margin: 0 auto;
+  margin-bottom: 60px;
+}
+.queue .overlay {
   background: rgba(0, 0, 0, 0.2);
 }
 .intro h1 {

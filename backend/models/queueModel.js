@@ -1,3 +1,3 @@
-import db from '../firebaseConfig.js';
+import db from "../firebaseConfig.js"
 
 export const Queue = db.collection('queue');
