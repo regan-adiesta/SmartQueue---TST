@@ -1,13 +1,12 @@
 import express from 'express';
 import cors from 'cors';
-import queueRoutes from './routes/queueRoutes.js'; // Ensure correct import
+import queueRoutes from './routes/queueRoutes.js'; 
 
 const app = express();
 
-// Use CORS to allow requests from the frontend (localhost:3000)
 app.use(cors({
-  origin: 'http://localhost:3000', // Allow the frontend's origin
-  methods: ['GET', 'POST'], // Allow GET and POST requests
+  origin: 'http://localhost:3000', 
+  methods: ['GET', 'POST'], 
 }));
 
 app.use(express.json());
