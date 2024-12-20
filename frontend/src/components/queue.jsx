@@ -20,12 +20,12 @@ const Queue = (props) => {
       const queueData = querySnapshot.docs.map((doc) => doc.data());
       setQueue(queueData);
 
-      // Calculate user position in the queue
+
       const userPosition = queueData.findIndex((user) => user.id === currentUser?.uid) + 1;
       setCurrentUserQueueNumber(userPosition);
       
-      // Estimate wait time (this is an example, adjust it as needed)
-      const waitTime = userPosition * 5; // Assume 5 minutes per person
+    
+      const waitTime = userPosition * 5; 
       setEstimatedWaitTime(waitTime);
     } catch (error) {
       console.error("Error fetching queue data:", error);
@@ -35,17 +35,17 @@ const Queue = (props) => {
   const joinQueue = async () => {
     try {
       const userId = currentUser?.uid;
-      const priorityValue = 1; // Adjust priority as needed
+      const priorityValue = 1; 
       const queueRef = collection(db, "queue");
 
       const docRef = await addDoc(queueRef, {
         id: userId,
-        name: currentUser?.displayName || "Unnamed User", // Replace with actual user name
+        name: currentUser?.displayName || "Unnamed User",
         priority: priorityValue,
       });
 
       console.log("User added to the queue with ID:", docRef.id);
-      fetchQueueData(); // Re-fetch the queue data after joining
+      fetchQueueData(); 
     } catch (error) {
       console.error("Error joining queue:", error);
     }

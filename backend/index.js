@@ -1,4 +1,4 @@
-// Add a user to the queue
+
 app.post("/queue", async (req, res) => {
     const { userId, priority = 0 } = req.body;
     try {
@@ -15,7 +15,6 @@ app.post("/queue", async (req, res) => {
     }
   });
   
-  // Get the current queue
   app.get("/queue", async (req, res) => {
     try {
       const snapshot = await db
@@ -35,7 +34,7 @@ app.post("/queue", async (req, res) => {
     }
   });
   
-  // Remove a user from the queue
+
   app.delete("/queue/:queueId", async (req, res) => {
     const { queueId } = req.params;
     try {
@@ -46,14 +45,14 @@ app.post("/queue", async (req, res) => {
     }
   });
   
-  // Predict wait time using AI
+
   app.get("/queue/wait-time", async (req, res) => {
     try {
       const snapshot = await db.collection("queues").get();
       const queue = snapshot.docs.map((doc) => doc.data());
   
-      // Mock AI model for prediction
-      const waitTime = queue.length * 5; // Assume 5 minutes per user
+
+      const waitTime = queue.length * 5; 
       res.send({ estimatedWaitTime: `${waitTime} minutes` });
     } catch (error) {
       res.status(500).send({ error: "Failed to calculate wait time" });

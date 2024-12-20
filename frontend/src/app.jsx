@@ -29,7 +29,7 @@ const App = () => {
 
   return (
     <Routes>
-      {/* Route for Home Page */}
+
       <Route
         path="/"
         element={
@@ -37,7 +37,6 @@ const App = () => {
             <Navigation />
             <Header data={landingPageData.Header} />
             <Contact data={landingPageData.Contact} />
-            {/* Add other components here as needed */}
           </div>
         }
       />

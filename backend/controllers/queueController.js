@@ -5,7 +5,6 @@ export const joinQueue = async (req, res) => {
     const { userId, priorityValue } = req.body;
   
     try {
-      // Simulating adding user to a queue
       Queue.push({ userId, priorityValue, position: Queue.length + 1 });
       res.status(200).json({ message: "Successfully joined the queue!" });
     } catch (error) {
@@ -35,7 +34,7 @@ export const joinQueue = async (req, res) => {
         return res.status(404).json({ error: "User not found in queue." });
       }
   
-      const estimatedWaitTime = user.position * 5; // Example: 5 minutes per person
+      const estimatedWaitTime = user.position * 5; 
       res.status(200).json({ position: user.position, estimatedWaitTime });
     } catch (error) {
       console.error("Error finding user position:", error);

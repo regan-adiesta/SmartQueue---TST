@@ -20,11 +20,11 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError(""); // Clear any previous errors
+    setError(""); 
 
     try {
       if (isRegister) {
-        // Register a new user
+
         const userCredential = await createUserWithEmailAndPassword(
           auth,
           email,
@@ -32,7 +32,7 @@ const Login = () => {
         );
         const userId = userCredential.user.uid;
 
-        // Save additional details to Firestore
+
         await setDoc(doc(db, "user", userId), {
           first_name: firstName,
           last_name: lastName,
@@ -41,14 +41,14 @@ const Login = () => {
         });
 
         alert("Registration successful! You can now log in.");
-        setIsRegister(false); // Switch to login mode
+        setIsRegister(false); 
       } else {
         // Log in the user
         await signInWithEmailAndPassword(auth, email, password);
-        navigate("/"); // Navigate to the home page after login
+        navigate("/"); 
       }
     } catch (err) {
-      setError(err.message); // Display error message
+      setError(err.message); 
     }
   };
 

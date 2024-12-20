@@ -23,17 +23,16 @@ export const Contact = (props) => {
     e.preventDefault();
 
     try {
-      // Add ticket to Firestore
       const ticketCollection = collection(db, "ticket");
       await addDoc(ticketCollection, {
         name,
         email,
         message,
-        createdAt: new Date(), // Add timestamp
+        createdAt: new Date(), 
       });
 
       alert("Your ticket has been submitted successfully!");
-      clearState(); // Reset form fields
+      clearState(); 
     } catch (error) {
       console.error("Error submitting ticket: ", error);
       alert("Failed to submit ticket. Please try again later.");

@@ -4,7 +4,7 @@ import { db } from "../firebaseConfig.js";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 
 const Profile = (props) => {
-  const { currentUser } = useAuth(); // Get the logged-in user
+  const { currentUser } = useAuth(); 
   const [editing, setEditing] = useState(false);
   const [formData, setFormData] = useState({
     first_name: "",
@@ -14,7 +14,7 @@ const Profile = (props) => {
     special_condition: false,
   });
 
-  // Fetch user profile data from Firestore
+
   useEffect(() => {
     const fetchProfileData = async () => {
       try {
@@ -31,7 +31,7 @@ const Profile = (props) => {
     fetchProfileData();
   }, [currentUser]);
 
-  // Handle input changes
+
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     setFormData({
@@ -40,7 +40,7 @@ const Profile = (props) => {
     });
   };
 
-  // Save profile updates to Firestore
+
   const saveProfile = async () => {
     try {
       if (currentUser) {
