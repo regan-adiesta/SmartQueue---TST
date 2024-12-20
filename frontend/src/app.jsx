@@ -9,7 +9,9 @@ import { Services } from "./components/services";
 // import { Gallery } from "./components/gallery";
 // import { Testimonials } from "./components/testimonials";
 // import { Team } from "./components/Team";
-// import { Contact } from "./components/contact";
+import Queue from "./components/queue";
+import Profile from "./components/profile";
+import { Contact } from "./components/contact";
 import JsonData from "./data/data.json";
 // import SmoothScroll from "smooth-scroll";
 import "./App.css";
@@ -34,13 +36,15 @@ const App = () => {
           <div>
             <Navigation />
             <Header data={landingPageData.Header} />
-            {/* <Contact data={landingPageData.Contact} /> */}
+            <Contact data={landingPageData.Contact} />
             {/* Add other components here as needed */}
           </div>
         }
       />
       {/* Route for Login Page */}
       <Route path="/login" element={<Login />} />
+      <Route path="/profile" element={<Profile />} />
+      <Route path="/queue" element={<Queue />}/>
     </Routes>
   );
 };

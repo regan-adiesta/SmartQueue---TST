@@ -1,25 +1,45 @@
-const { Queue, queues } = require("../models/queueModel");
+// Ensure you're exporting the functions correctly
+import {Queue} from '../models/queueModel.js'
 
-const getQueues = (req, res) => {
-    res.json(queues);
-};
-
-const addQueue = (req, res) => {
-    const { name, priority } = req.body;
-    const newQueue = new Queue(name, priority);
-    queues.push(newQueue);
-    res.status(201).json(newQueue);
-};
-
-const deleteQueue = (req, res) => {
-    const { id } = req.params;
-    const index = queues.findIndex((queue) => queue.id === id);
-    if (index > -1) {
-        queues.splice(index, 1);
-        res.status(200).json({ message: "Queue deleted successfully" });
-    } else {
-        res.status(404).json({ message: "Queue not found" });
+const joinQueue = async (req, res) => {
+    const { userId, priorityValue } = req.body;
+  
+    try {
+      // Simulating adding user to a queue
+      Queue.push({ userId, priorityValue, position: Queue.length + 1 });
+      res.status(200).json({ message: "Successfully joined the queue!" });
+    } catch (error) {
+      console.error("Error adding to queue:", error);
+      res.status(500).json({ error: "Failed to join queue." });
     }
-};
-
-module.exports = { getQueues, addQueue, deleteQueue };
+  };
+  
+  export const getQueueFromQueueModel = async (req, res) => {
+    try {
+      const queue = await Queue.getQueue();
+      res.status(200).json(queue);
+    } catch (error) {
+      console.error("Error retrieving queue:", error);
+      res.status(500).json({ error: "Failed to retrieve queue." });
+    }
+  };
+  
+  export const getUserPosition = async (req, res) => {
+    const { userId } = req.params;
+  
+    try {
+      const queue = await Queue.getQueue();
+      const user = queue.find((entry) => entry.userId === userId);
+  
+      if (!user) {
+        return res.status(404).json({ error: "User not found in queue." });
+      }
+  
+      const estimatedWaitTime = user.position * 5; // Example: 5 minutes per person
+      res.status(200).json({ position: user.position, estimatedWaitTime });
+    } catch (error) {
+      console.error("Error finding user position:", error);
+      res.status(500).json({ error: "Failed to retrieve user position." });
+    }
+  };
+  

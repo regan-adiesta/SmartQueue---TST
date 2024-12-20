@@ -1,7 +1,19 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useAuth } from "../contexts/authContext";
 
 export const Navigation = (props) => {
+  const { userLoggedIn, logout } = useAuth();
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+      console.log("Successfully logged out");
+    } catch (error) {
+      console.error("Logout failed:", error);
+    }
+  };
+
   return (
     <nav id="menu" className="navbar navbar-default navbar-fixed-top">
       <div className="container">
@@ -29,19 +41,32 @@ export const Navigation = (props) => {
         >
           <ul className="nav navbar-nav navbar-right">
             <li>
-              <a href="#features" className="page-scroll">
-                Features
+              <a href="/profile" className="page-scroll">
+                Profile
               </a>
             </li>
-            <li>
+            {/* <li>
               <a href="#about" className="page-scroll">
                 About
               </a>
-            </li>
+            </li> */}
             <li>
-            <Link to="/login">Login</Link>
-            </li>
+              <a href="#contact" className="page-scroll">
+                Contact
+              </a>
+              </li>
             <li>
+              {userLoggedIn ? (
+                <a onClick={handleLogout} className="page-scroll">
+                  Logout
+                </a>
+              ) : (
+                <a href="/login" className="page-scroll">
+                  Login
+                </a>
+              )}
+            </li>
+            {/* <li>
               <a href="#portfolio" className="page-scroll">
                 Gallery
               </a>
@@ -55,12 +80,7 @@ export const Navigation = (props) => {
               <a href="#team" className="page-scroll">
                 Team
               </a>
-            </li>
-            <li>
-              <a href="#contact" className="page-scroll">
-                Contact
-              </a>
-            </li>
+            </li> */}
           </ul>
         </div>
       </div>

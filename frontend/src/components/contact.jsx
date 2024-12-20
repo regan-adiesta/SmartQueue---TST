@@ -1,5 +1,7 @@
 import { useState } from "react";
-import emailjs from "emailjs-com";
+import { db } from "../firebaseConfig";
+import { getFirestore, collection, addDoc } from "firebase/firestore";
+// import emailjs from "emailjs-com";
 import React from "react";
 
 const initialState = {
@@ -17,23 +19,25 @@ export const Contact = (props) => {
   const clearState = () => setState({ ...initialState });
   
   
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(name, email, message);
-    
-    {/* replace below with your own Service ID, Template ID and Public Key from your EmailJS account */ }
-    
-    emailjs
-      .sendForm("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", e.target, "YOUR_PUBLIC_KEY")
-      .then(
-        (result) => {
-          console.log(result.text);
-          clearState();
-        },
-        (error) => {
-          console.log(error.text);
-        }
-      );
+
+    try {
+      // Add ticket to Firestore
+      const ticketCollection = collection(db, "ticket");
+      await addDoc(ticketCollection, {
+        name,
+        email,
+        message,
+        createdAt: new Date(), // Add timestamp
+      });
+
+      alert("Your ticket has been submitted successfully!");
+      clearState(); // Reset form fields
+    } catch (error) {
+      console.error("Error submitting ticket: ", error);
+      alert("Failed to submit ticket. Please try again later.");
+    }
   };
   return (
     <div>
@@ -42,7 +46,7 @@ export const Contact = (props) => {
           <div className="col-md-8">
             <div className="row">
               <div className="section-title">
-                <h2>Get In Touch</h2>
+                <h2>Send Ticket</h2>
                 <p>
                   Please fill out the form below to send us an email and we will
                   get back to you as soon as possible.
@@ -151,14 +155,6 @@ export const Contact = (props) => {
         </div>
       </div>
       <div id="footer">
-        <div className="container text-center">
-          <p>
-            &copy; 2023 Issaaf Kattan React Land Page Template. Design by{" "}
-            <a href="http://www.templatewire.com" rel="nofollow">
-              TemplateWire
-            </a>
-          </p>
-        </div>
       </div>
     </div>
   );
